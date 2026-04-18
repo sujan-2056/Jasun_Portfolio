@@ -57,11 +57,11 @@
   /* ── SCROLL PROGRESS BAR ── */
   #scroll-bar {
     position: fixed;
-    top: 0; left: 0;
-    height: 3px;
+    top: 0; left: 0; /* JS sets correct top after nav renders */
+    height: 2px;
     width: 0%;
     background: linear-gradient(90deg, var(--accent), var(--accent2));
-    z-index: 300;
+    z-index: 199;
     transition: width 0.08s linear;
     box-shadow: 0 0 8px rgba(0,229,255,0.7);
   }
@@ -69,7 +69,7 @@
   /* ── NAV ── */
   nav {
     position: fixed;
-    top: 3px; left: 0; right: 0;
+    top: 0; left: 0; right: 0;
     z-index: 200;
     display: grid;
     grid-template-columns: 180px 1fr 180px;
@@ -187,7 +187,7 @@
   .mobile-menu {
     display: none;
     position: fixed;
-    top: 58px; left: 0; right: 0;
+    top: var(--nav-h, 58px); left: 0; right: 0;
     background: rgba(8,11,16,0.98);
     border-bottom: 1px solid var(--border);
     z-index: 199;
@@ -1103,9 +1103,18 @@ function type() {
 type();
 
 /* ══════════════════════════════════════════
-   SCROLL PROGRESS BAR
+   SCROLL PROGRESS BAR — pinned to nav bottom
 ══════════════════════════════════════════ */
 const scrollBar = document.getElementById('scroll-bar');
+const navbar    = document.querySelector('nav');
+
+function positionScrollBar() {
+  const navH = navbar.getBoundingClientRect().height;
+  scrollBar.style.top = navH + 'px';
+  document.documentElement.style.setProperty('--nav-h', navH + 'px');
+}
+positionScrollBar();
+window.addEventListener('resize', positionScrollBar, { passive: true });
 
 /* ══════════════════════════════════════════
    ACTIVE NAV LINK HIGHLIGHT
