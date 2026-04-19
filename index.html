@@ -1200,9 +1200,9 @@ function copyEmail() {
 }
 
 /* ══════════════════════════════════════════
-   DOWNLOAD RESUME
+   DOWNLOAD RESUME - this section from 1203 - 1217 is commented because it prevent to direct to google drive to download the resume
 ══════════════════════════════════════════ */
-function downloadResume(e) {
+/*function downloadResume(e) {
   if (e) e.preventDefault();
   const link = document.createElement('a');
   link.href = 'jasunkhadka.pdf'; // replace with hosted PDF path
@@ -1210,8 +1210,9 @@ function downloadResume(e) {
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
-}
+} */
 
+/*
 document.getElementById('dlResumeBtn').addEventListener('click', downloadResume);
 document.getElementById('navDlBtn').addEventListener('click', downloadResume);
 
